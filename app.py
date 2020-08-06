@@ -43,12 +43,12 @@ def tesco():
 
     list_urls={'Infrastructure':'https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs',
     'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs',
-    'Product':'https://www.tesco-careers.com/technology/uk/en/c/product-jobs',
-    'Programme':'https://www.tesco-careers.com/technology/uk/en/c/programme-jobs','Security':'https://www.tesco-careers.com/technology/uk/en/c/security-jobs',
-    'Software Engineering':'https://www.tesco-careers.com/technology/uk/en/search-results?category=Software Engineering','Software Engineering Architect':'https://www.tesco-careers.com/technology/uk/en/c/software-engineering-architecture-jobs',
-    'System Engineering':'https://www.tesco-careers.com/technology/uk/en/search-results?category=System Engineering',
-    'UI/UX':'https://www.tesco-careers.com/technology/uk/en/c/uiux-design-jobs',
-    'Others':'https://www.tesco-careers.com/technology/uk/en/c/other-jobs'}
+    'Product':'https://www.tesco-careers.com/technology/uk/en/c/product-jobs'}
+#     'Programme':'https://www.tesco-careers.com/technology/uk/en/c/programme-jobs','Security':'https://www.tesco-careers.com/technology/uk/en/c/security-jobs',
+#     'Software Engineering':'https://www.tesco-careers.com/technology/uk/en/search-results?category=Software Engineering','Software Engineering Architect':'https://www.tesco-careers.com/technology/uk/en/c/software-engineering-architecture-jobs',
+#     'System Engineering':'https://www.tesco-careers.com/technology/uk/en/search-results?category=System Engineering',
+#     'UI/UX':'https://www.tesco-careers.com/technology/uk/en/c/uiux-design-jobs',
+#     'Others':'https://www.tesco-careers.com/technology/uk/en/c/other-jobs'}
 
     roles=[]
     mapping={}
