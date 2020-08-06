@@ -57,7 +57,7 @@ def tesco():
         roles=[]
         populate=[]
         driver.get(url)
-        time.sleep(40)
+        time.sleep(60)
         content = driver.page_source
         print(content)
         # time.sleep(10)
@@ -74,7 +74,7 @@ def tesco():
         populate.append(url)
         populate.append(roles)
         mapping[iterator]=populate
-        # time.sleep(10)
+        time.sleep(30)
 
     print(mapping)
     # data=[]
@@ -88,7 +88,7 @@ def tesco():
 def flipkart():
     url='https://www.flipkartcareers.com/#!/joblist'
     driver.get(url)
-    time.sleep(10)
+    time.sleep(40)
     content=driver.page_source
     soup1=BeautifulSoup(content,"lxml")
     xx=soup1.findAll('li',{"class": "ng-scope"})
@@ -104,7 +104,7 @@ def flipkart():
     for index in range(1,len(xx)+1):
         url_home='https://www.flipkartcareers.com/#!/joblist'
         driver.get(url_home)
-        time.sleep(3)
+        time.sleep(20)
         a=driver.find_element_by_link_text(str(index))
         # print(a)
         a.click()
@@ -125,7 +125,7 @@ def flipkart():
         # 'https://www.flipkartcareers.com/#!/job-view/associate-director-dc-ops-large-kolkata-kolkata-west-bengal-2019080914343317']
         for url in list_urls:
             driver.get(url)
-            time.sleep(2)
+            time.sleep(20)
             content = driver.page_source
             # print(content)
             # time.sleep(10)
