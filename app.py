@@ -101,26 +101,26 @@ def flipkart():
 #     #     a.click()
 #     #     time.sleep(20)
     raw_data=[]
-    xx=[1]
-    for index in range(1,len(xx)+1):
-        url_home='https://www.flipkartcareers.com/#!/joblist'
-        driver.get(url_home)
-        time.sleep(10)
-        a=driver.find_element_by_link_text(str(index))
-        # print(a)
-        a.click()
-        content=driver.page_source
-        soup=BeautifulSoup(content,"lxml")
-        list_urls=[]
-        x=soup.findAll('div',{"class": "col-md-4 ng-scope"})
-        for a_tags in x:
-            zz=a_tags.findAll('a')
-            # print(zz[0])
-            # print(zz[0]['href'])
-            url_construct='https://www.flipkartcareers.com/'+zz[0]['href']
-            list_urls.append(url_construct)
-        print(list_urls)
-        # list_urls=['https://www.flipkartcareers.com/#!/job-view/senior-manager-bangalore-karnataka-2020071019410853',
+#     xx=[1]
+#     for index in range(1,len(xx)+1):
+#         url_home='https://www.flipkartcareers.com/#!/joblist'
+#         driver.get(url_home)
+#         time.sleep(10)
+#         a=driver.find_element_by_link_text(str(index))
+#         # print(a)
+#         a.click()
+#         content=driver.page_source
+#         soup=BeautifulSoup(content,"lxml")
+#         list_urls=[]
+#         x=soup.findAll('div',{"class": "col-md-4 ng-scope"})
+#         for a_tags in x:
+#             zz=a_tags.findAll('a')
+#             # print(zz[0])
+#             # print(zz[0]['href'])
+#             url_construct='https://www.flipkartcareers.com/'+zz[0]['href']
+#             list_urls.append(url_construct)
+#         print(list_urls)
+        list_urls=['https://www.flipkartcareers.com/#!/job-view/senior-manager-bangalore-karnataka-2020071019410853']
         # 'https://www.flipkartcareers.com/#!/job-view/manager-bangalore-karnataka-2020062312304473',
         # 'https://www.flipkartcareers.com/#!/job-view/architect-bangalore-karnataka-2020012921042577',
         # 'https://www.flipkartcareers.com/#!/job-view/associate-director-dc-ops-large-kolkata-kolkata-west-bengal-2019080914343317']
