@@ -57,7 +57,7 @@ def tesco():
         roles=[]
         populate=[]
         driver.get(url)
-        time.sleep(2)
+        time.sleep(1.6)
         content = driver.page_source
         print(content)
         # time.sleep(10)
