@@ -88,7 +88,7 @@ def tesco():
 def flipkart():
     url='https://www.flipkartcareers.com/#!/joblist'
     driver.get(url)
-    time.sleep(1.6)
+    time.sleep(1)
     content=driver.page_source
     soup1=BeautifulSoup(content,"lxml")
     xx=soup1.findAll('li',{"class": "ng-scope"})
@@ -105,7 +105,7 @@ def flipkart():
     for index in range(1,len(xx)+1):
         url_home='https://www.flipkartcareers.com/#!/joblist'
         driver.get(url_home)
-        time.sleep(10)
+        time.sleep(5)
         a=driver.find_element_by_link_text(str(index))
         # print(a)
         a.click()
@@ -126,7 +126,7 @@ def flipkart():
         # 'https://www.flipkartcareers.com/#!/job-view/associate-director-dc-ops-large-kolkata-kolkata-west-bengal-2019080914343317']
         for url in list_urls:
             driver.get(url)
-            time.sleep(1.75)
+            time.sleep(1.25)
             content = driver.page_source
             # print(content)
             # time.sleep(10)
@@ -136,7 +136,7 @@ def flipkart():
             print(role[0].text)
 
             info=soup.findAll('p',{'class':'para-text-new ng-binding'})
-            print(info)
+#             print(info)
             open_pos=info[1].text
             # req_skills=info[2].text
             # quali=info[4].text
@@ -150,7 +150,7 @@ def flipkart():
             'Exp':exp,
             'Link':url
             }
-            print(maps)
+#             print(maps)
             # maps=jsonify(maps)
             raw_data.append(maps)
     # raw_data=jsonify(raw_data)
