@@ -35,7 +35,7 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), c
 
 @app.route('/')
 def main():
-    driver.get("https://www.youtube.com/watch?v=NerQs_SOwRo")
+#     driver.get("https://www.youtube.com/watch?v=NerQs_SOwRo")
     return render_template('home.html')
 
 @app.route('/tesco',methods=['GET', 'POST'])
@@ -57,7 +57,7 @@ def tesco():
         roles=[]
         populate=[]
         driver.get(url)
-        time.sleep(3)
+        time.sleep(4)
         content = driver.page_source
         print(content)
         # time.sleep(10)
