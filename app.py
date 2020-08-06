@@ -41,7 +41,8 @@ def main():
 @app.route('/tesco',methods=['GET', 'POST'])
 def tesco():
 
-#     list_urls={'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs',
+    list_urls={'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs'}
+#     ,
 #     'Infrastructure':'https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs',
 #     'Product':'https://www.tesco-careers.com/technology/uk/en/c/product-jobs',
 #     'Programme':'https://www.tesco-careers.com/technology/uk/en/c/programme-jobs','Security':'https://www.tesco-careers.com/technology/uk/en/c/security-jobs',
@@ -50,37 +51,37 @@ def tesco():
 #     'UI/UX':'https://www.tesco-careers.com/technology/uk/en/c/uiux-design-jobs',
 #     'Others':'https://www.tesco-careers.com/technology/uk/en/c/other-jobs'}
 
-#     roles=[]
+    roles=[]
     mapping={}
-#     for iterator in list_urls:
-#         url=list_urls[iterator]
-#         roles=[]
-#         populate=[]
-#         driver.get(url)
-#         time.sleep(10)
-#         content = driver.page_source
-#         print(content)
-#         # time.sleep(10)
-#         soup = BeautifulSoup(content,"lxml")
-#         s=soup.findAll('span')
-#         # ss=soup.span["data-ph-id"]
-#         for i in s:
-#             # print(i)
-#             # print(i.attrs)
-#             if('data-ph-id' in i.attrs):
-#                 if(i.attrs['data-ph-id']=='ph-page-element-page1-mafXOp' or i.attrs['data-ph-id']=='ph-page-element-page24-ywciEL'):
-#                     print(i.text)
-#                     roles.append(i.text)
-#         populate.append(url)
-#         populate.append(roles)
-#         mapping[iterator]=populate
-#         # time.sleep(10)
+    for iterator in list_urls:
+        url=list_urls[iterator]
+        roles=[]
+        populate=[]
+        driver.get(url)
+        time.sleep(20)
+        content = driver.page_source
+        print(content)
+        # time.sleep(10)
+        soup = BeautifulSoup(content,"lxml")
+        s=soup.findAll('span')
+        # ss=soup.span["data-ph-id"]
+        for i in s:
+            # print(i)
+            # print(i.attrs)
+            if('data-ph-id' in i.attrs):
+                if(i.attrs['data-ph-id']=='ph-page-element-page1-mafXOp' or i.attrs['data-ph-id']=='ph-page-element-page24-ywciEL'):
+                    print(i.text)
+                    roles.append(i.text)
+        populate.append(url)
+        populate.append(roles)
+        mapping[iterator]=populate
+        # time.sleep(10)
 
-#     print(mapping)
+    print(mapping)
     # data=[]
     # data.append(mapping)
-    mapping = {'Data': ['https://www.tesco-careers.com/technology/uk/en/c/data-jobs', ['Senior Data Scientist']], 'Infrastructure': ['https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs', ['Head of Service Management', 'Systems Engineer III - Networks', 'Head of Systems Engineering - Product and Architecture', 'Change and Adoption Manager, Workplace Technology', 'Product Manager - Identity & Collaboration, Workplace Technology']], 'Product': ['https://www.tesco-careers.com/technology/uk/en/c/product-jobs', ['Product Manager - Store Stock and Self Edge Management', 'Product Manager - Post Order', 'Senior Product Manager', 'Product Manager - MCA']], 'Programme': ['https://www.tesco-careers.com/technology/uk/en/c/programme-jobs', ['Technical Programme Manager - Product Transformation', 'Technical Programme Manager - Infrastructure', 'Lead Technical Programme Manager – Tesco Till Hardware and Projects', 'Senior Technical Programme Manager – Stores Hardware', 'Technical Programme Manager - Data', 'Senior Technical Programme Manager – Infrastructure']], 'Security': ['https://www.tesco-careers.com/technology/uk/en/c/security-jobs', ['Security Analyst II (IAM) – Infrastructure Controls', 'Security Analyst II (IAM) – Application Controls', 
-    'Security Engineering Manager - Cyber Platforms', 'Systems Engineer II', 'Technology Risk and Compliance Manager', 'Security Engineer - SIEM & SOC', 'Security Analyst II', 'Security Architect', 'Systems Engineering Manager']], 'Software Engineering': ['https://www.tesco-careers.com/technology/uk/en/search-results?category=Software Engineering', ['Software Dev Engineer III- Data Engineering', 'Software Dev Engineer II', 'Software Dev Engineer III', 'Software Development Manager', 'Head of Software Development', 'Systems Engineering Manager', 'Software Dev Engineer III', 'Principal Software Dev Engr', 'Software Dev Engineer III']], 'Software Engineering Architect': ['https://www.tesco-careers.com/technology/uk/en/c/software-engineering-architecture-jobs', ['Software Development Manager - Tills', 'Senior Java Engineer', 'Senior Java Developer', 'Senior Software Engineer - Frontend', 'Software Development Manager - Encryption', 'Software Development Engineer III – Android', 'Principal Software Development Engineer - Data & Analytics', 'Senior .NET Developer', 'Systems Engineer DevOps (Omnichannel)', 'Senior Developer - Tesco Connect']], 'System Engineering': ['https://www.tesco-careers.com/technology/uk/en/search-results?category=System Engineering', ['Systems Engineer II', 'Systems Engineer I - JIRA', 'Systems Engineer I', 'Systems Engineer I', 'Systems Engineer I', 'Systems Engineer II', 'Systems Engineer I', 'Systems Engineer III', 'Systems Engineer II', 'Systems Engineering Manager - Storage & Backup']], 'UI/UX': ['https://www.tesco-careers.com/technology/uk/en/c/uiux-design-jobs', ['Associate UX Designer', 'UI Designer - Complex Applications', 'Senior Product Designer']], 'Others': ['https://www.tesco-careers.com/technology/uk/en/c/other-jobs', ['Software Development Engineer III', 'Product Manager - Computer Vision', 'Product Manager - Data Platforms', 'Software Development Engineer III', 'Software Dev Engineer II', 'Senior Digital Analyst (Customer Product)', 'Head of Product - Colleague Transformation']]}
+#     mapping = {'Data': ['https://www.tesco-careers.com/technology/uk/en/c/data-jobs', ['Senior Data Scientist']], 'Infrastructure': ['https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs', ['Head of Service Management', 'Systems Engineer III - Networks', 'Head of Systems Engineering - Product and Architecture', 'Change and Adoption Manager, Workplace Technology', 'Product Manager - Identity & Collaboration, Workplace Technology']], 'Product': ['https://www.tesco-careers.com/technology/uk/en/c/product-jobs', ['Product Manager - Store Stock and Self Edge Management', 'Product Manager - Post Order', 'Senior Product Manager', 'Product Manager - MCA']], 'Programme': ['https://www.tesco-careers.com/technology/uk/en/c/programme-jobs', ['Technical Programme Manager - Product Transformation', 'Technical Programme Manager - Infrastructure', 'Lead Technical Programme Manager – Tesco Till Hardware and Projects', 'Senior Technical Programme Manager – Stores Hardware', 'Technical Programme Manager - Data', 'Senior Technical Programme Manager – Infrastructure']], 'Security': ['https://www.tesco-careers.com/technology/uk/en/c/security-jobs', ['Security Analyst II (IAM) – Infrastructure Controls', 'Security Analyst II (IAM) – Application Controls', 
+#     'Security Engineering Manager - Cyber Platforms', 'Systems Engineer II', 'Technology Risk and Compliance Manager', 'Security Engineer - SIEM & SOC', 'Security Analyst II', 'Security Architect', 'Systems Engineering Manager']], 'Software Engineering': ['https://www.tesco-careers.com/technology/uk/en/search-results?category=Software Engineering', ['Software Dev Engineer III- Data Engineering', 'Software Dev Engineer II', 'Software Dev Engineer III', 'Software Development Manager', 'Head of Software Development', 'Systems Engineering Manager', 'Software Dev Engineer III', 'Principal Software Dev Engr', 'Software Dev Engineer III']], 'Software Engineering Architect': ['https://www.tesco-careers.com/technology/uk/en/c/software-engineering-architecture-jobs', ['Software Development Manager - Tills', 'Senior Java Engineer', 'Senior Java Developer', 'Senior Software Engineer - Frontend', 'Software Development Manager - Encryption', 'Software Development Engineer III – Android', 'Principal Software Development Engineer - Data & Analytics', 'Senior .NET Developer', 'Systems Engineer DevOps (Omnichannel)', 'Senior Developer - Tesco Connect']], 'System Engineering': ['https://www.tesco-careers.com/technology/uk/en/search-results?category=System Engineering', ['Systems Engineer II', 'Systems Engineer I - JIRA', 'Systems Engineer I', 'Systems Engineer I', 'Systems Engineer I', 'Systems Engineer II', 'Systems Engineer I', 'Systems Engineer III', 'Systems Engineer II', 'Systems Engineering Manager - Storage & Backup']], 'UI/UX': ['https://www.tesco-careers.com/technology/uk/en/c/uiux-design-jobs', ['Associate UX Designer', 'UI Designer - Complex Applications', 'Senior Product Designer']], 'Others': ['https://www.tesco-careers.com/technology/uk/en/c/other-jobs', ['Software Development Engineer III', 'Product Manager - Computer Vision', 'Product Manager - Data Platforms', 'Software Development Engineer III', 'Software Dev Engineer II', 'Senior Digital Analyst (Customer Product)', 'Head of Product - Colleague Transformation']]}
     return render_template('tesco.html',data=mapping)
 
 
