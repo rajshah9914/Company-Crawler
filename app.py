@@ -120,13 +120,13 @@ def flipkart():
             url_construct='https://www.flipkartcareers.com/'+zz[0]['href']
             list_urls.append(url_construct)
         print(list_urls)
-        list_urls=['https://www.flipkartcareers.com/#!/job-view/senior-manager-bangalore-karnataka-2020071019410853']
+#         list_urls=['https://www.flipkartcareers.com/#!/job-view/senior-manager-bangalore-karnataka-2020071019410853']
         # 'https://www.flipkartcareers.com/#!/job-view/manager-bangalore-karnataka-2020062312304473',
         # 'https://www.flipkartcareers.com/#!/job-view/architect-bangalore-karnataka-2020012921042577',
         # 'https://www.flipkartcareers.com/#!/job-view/associate-director-dc-ops-large-kolkata-kolkata-west-bengal-2019080914343317']
         for url in list_urls:
             driver.get(url)
-            time.sleep(2)
+            time.sleep(1.75)
             content = driver.page_source
             # print(content)
             # time.sleep(10)
