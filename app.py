@@ -41,8 +41,8 @@ def main():
 @app.route('/tesco',methods=['GET', 'POST'])
 def tesco():
 
-    list_urls={'Infrastructure':'https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs'}
-#         'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs',
+    list_urls={'Infrastructure':'https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs',
+        'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs'}
 #     ,
 #     'Product':'https://www.tesco-careers.com/technology/uk/en/c/product-jobs',
 #     'Programme':'https://www.tesco-careers.com/technology/uk/en/c/programme-jobs','Security':'https://www.tesco-careers.com/technology/uk/en/c/security-jobs',
@@ -58,7 +58,7 @@ def tesco():
         roles=[]
         populate=[]
         driver.get(url)
-        time.sleep(20)
+        time.sleep(5)
         content = driver.page_source
         print(content)
         # time.sleep(10)
