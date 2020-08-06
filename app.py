@@ -41,8 +41,9 @@ def main():
 @app.route('/tesco',methods=['GET', 'POST'])
 def tesco():
 
-    list_urls={'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs',
-    'Infrastructure':'https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs'}
+    list_urls={'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs'}
+#                ,
+#     'Infrastructure':'https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs'}
 #     ,
 #     'Product':'https://www.tesco-careers.com/technology/uk/en/c/product-jobs',
 #     'Programme':'https://www.tesco-careers.com/technology/uk/en/c/programme-jobs','Security':'https://www.tesco-careers.com/technology/uk/en/c/security-jobs',
