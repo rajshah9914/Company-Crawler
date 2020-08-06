@@ -58,7 +58,7 @@ def tesco():
         roles=[]
         populate=[]
         driver.get(url)
-        time.sleep(60)
+        time.sleep(20)
         content = driver.page_source
         print(content)
         # time.sleep(10)
@@ -75,7 +75,7 @@ def tesco():
         populate.append(url)
         populate.append(roles)
         mapping[iterator]=populate
-        time.sleep(30)
+#         time.sleep(30)
 
     print(mapping)
     # data=[]
