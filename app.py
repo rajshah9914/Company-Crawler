@@ -36,7 +36,7 @@ driver = webdriver.Chrome(execution_path="/app/.chromedriver/bin/chromedriver", 
 @app.route('/')
 def main():
     driver.get("https://www.youtube.com/watch?v=NerQs_SOwRo")
-    #return render_template('home.html')
+    return render_template('home.html')
 
 @app.route('/tesco',methods=['GET', 'POST'])
 def tesco():
