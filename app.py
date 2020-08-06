@@ -86,21 +86,22 @@ def tesco():
 
 @app.route('/flipkart',methods=['GET', 'POST'])
 def flipkart():
-    url='https://www.flipkartcareers.com/#!/joblist'
-    driver.get(url)
-    time.sleep(1.6)
-    content=driver.page_source
-    soup1=BeautifulSoup(content,"lxml")
-    xx=soup1.findAll('li',{"class": "ng-scope"})
-    print(len(xx))
-    # for index in range(1,len(xx)+1):
-    #     url_home='https://www.flipkartcareers.com/#!/joblist'
-    #     driver.get(url_home)
-    #     a=driver.find_element_by_link_text(str(index))
-    #     # print(a)
-    #     a.click()
-    #     time.sleep(20)
+#     url='https://www.flipkartcareers.com/#!/joblist'
+#     driver.get(url)
+#     time.sleep(1.6)
+#     content=driver.page_source
+#     soup1=BeautifulSoup(content,"lxml")
+#     xx=soup1.findAll('li',{"class": "ng-scope"})
+#     print(len(xx))
+#     # for index in range(1,len(xx)+1):
+#     #     url_home='https://www.flipkartcareers.com/#!/joblist'
+#     #     driver.get(url_home)
+#     #     a=driver.find_element_by_link_text(str(index))
+#     #     # print(a)
+#     #     a.click()
+#     #     time.sleep(20)
     raw_data=[]
+    xx=[1]
     for index in range(1,len(xx)+1):
         url_home='https://www.flipkartcareers.com/#!/joblist'
         driver.get(url_home)
