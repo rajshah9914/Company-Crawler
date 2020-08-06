@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        .loader {
+        display:none;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #D35400;
+        width: 50px;
+        height: 50px;
+        margin-left: 650px;
+        margin-top: 250px;
+        -webkit-animation: spin 1s linear infinite; /* Safari */
+        animation: spin 1s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        }
+        body {
+            font-family: "Lato", sans-serif;
+            background-image: url('https://www.jobsoid.com/wp-content/uploads/2019/01/What-goes-into-a-perfect-recruitment-process%EF%80%A5-640x480.png');
+        }
+
+        .sidepanel {
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidepanel a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidepanel a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="mySidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <p style="color: #f1f1f1;">Choose your Needed Company</p>
+        <a href="/tesco" onclick="show()">Tesco</a>
+        <a href="/flipkart" onclick="show()">Flipkart</a>
+        <a href="/amazon" onclick="show()">Amazon</a>
+        <a href="/walmart" onclick="show()">Walmart</a>
+    </div>
+
+    <button class="openbtn" onclick="openNav()">☰</button>
+    <script>
+        function show() {
+            var element = document.getElementsByClassName('loader');
+            console.log(element);
+            element[0].style.display = 'block';
+        }   
+
+        function openNav() {
+            document.getElementById("mySidepanel").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidepanel").style.width = "0";
+        }
+    </script>
+
+</body>
+
+</html>
