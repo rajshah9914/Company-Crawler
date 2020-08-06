@@ -105,7 +105,7 @@ def flipkart():
     for index in range(1,len(xx)+1):
         url_home='https://www.flipkartcareers.com/#!/joblist'
         driver.get(url_home)
-        time.sleep(5.5)
+        time.sleep(4)
         a=driver.find_element_by_link_text(str(index))
         # print(a)
         a.click()
@@ -126,7 +126,7 @@ def flipkart():
         # 'https://www.flipkartcareers.com/#!/job-view/associate-director-dc-ops-large-kolkata-kolkata-west-bengal-2019080914343317']
         for url in list_urls:
             driver.get(url)
-            time.sleep(4)
+            time.sleep(1.6)
             content = driver.page_source
             # print(content)
             # time.sleep(10)
