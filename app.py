@@ -9,40 +9,18 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 
-
-#GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-#CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_argument('--disable-gpu')
-# chrome_options.add_argument("--headless")
-# chrome_options.add_argument("--disable-dev-shm-usage")
-# chrome_options.add_argument("--no-sandbox")
-# chrome_options.binary_location = "/app/.apt/usr/bin/google_chrome"
-
-# driver = webdriver.Chrome(execution_path="/app/.chromedriver/bin/chromedriver", chrome_options=chrome_options)
-
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-
-
-##DRIVER_PATH = 'chromedriver'
-##driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+DRIVER_PATH = 'chromedriver'
+driver = webdriver.Chrome(executable_path=DRIVER_PATH)
 
 @app.route('/')
 def main():
-#     driver.get("https://www.youtube.com/watch?v=NerQs_SOwRo")
     return render_template('home.html')
 
 @app.route('/tesco',methods=['GET', 'POST'])
 def tesco():
 
-    list_urls={'Infrastructure':'https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs',
-    'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs',
+    list_urls={'Data':'https://www.tesco-careers.com/technology/uk/en/c/data-jobs',
+    'Infrastructure':'https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs',
     'Product':'https://www.tesco-careers.com/technology/uk/en/c/product-jobs',
     'Programme':'https://www.tesco-careers.com/technology/uk/en/c/programme-jobs','Security':'https://www.tesco-careers.com/technology/uk/en/c/security-jobs',
     'Software Engineering':'https://www.tesco-careers.com/technology/uk/en/search-results?category=Software Engineering','Software Engineering Architect':'https://www.tesco-careers.com/technology/uk/en/c/software-engineering-architecture-jobs',
@@ -57,7 +35,7 @@ def tesco():
         roles=[]
         populate=[]
         driver.get(url)
-        time.sleep(1.6)
+        time.sleep(1)
         content = driver.page_source
         print(content)
         # time.sleep(10)
@@ -74,13 +52,11 @@ def tesco():
         populate.append(url)
         populate.append(roles)
         mapping[iterator]=populate
-#         time.sleep(30)
+        # time.sleep(10)
 
     print(mapping)
     # data=[]
     # data.append(mapping)
-#     mapping = {'Data': ['https://www.tesco-careers.com/technology/uk/en/c/data-jobs', ['Senior Data Scientist']], 'Infrastructure': ['https://www.tesco-careers.com/technology/uk/en/c/infrastructure-jobs', ['Head of Service Management', 'Systems Engineer III - Networks', 'Head of Systems Engineering - Product and Architecture', 'Change and Adoption Manager, Workplace Technology', 'Product Manager - Identity & Collaboration, Workplace Technology']], 'Product': ['https://www.tesco-careers.com/technology/uk/en/c/product-jobs', ['Product Manager - Store Stock and Self Edge Management', 'Product Manager - Post Order', 'Senior Product Manager', 'Product Manager - MCA']], 'Programme': ['https://www.tesco-careers.com/technology/uk/en/c/programme-jobs', ['Technical Programme Manager - Product Transformation', 'Technical Programme Manager - Infrastructure', 'Lead Technical Programme Manager – Tesco Till Hardware and Projects', 'Senior Technical Programme Manager – Stores Hardware', 'Technical Programme Manager - Data', 'Senior Technical Programme Manager – Infrastructure']], 'Security': ['https://www.tesco-careers.com/technology/uk/en/c/security-jobs', ['Security Analyst II (IAM) – Infrastructure Controls', 'Security Analyst II (IAM) – Application Controls', 
-#     'Security Engineering Manager - Cyber Platforms', 'Systems Engineer II', 'Technology Risk and Compliance Manager', 'Security Engineer - SIEM & SOC', 'Security Analyst II', 'Security Architect', 'Systems Engineering Manager']], 'Software Engineering': ['https://www.tesco-careers.com/technology/uk/en/search-results?category=Software Engineering', ['Software Dev Engineer III- Data Engineering', 'Software Dev Engineer II', 'Software Dev Engineer III', 'Software Development Manager', 'Head of Software Development', 'Systems Engineering Manager', 'Software Dev Engineer III', 'Principal Software Dev Engr', 'Software Dev Engineer III']], 'Software Engineering Architect': ['https://www.tesco-careers.com/technology/uk/en/c/software-engineering-architecture-jobs', ['Software Development Manager - Tills', 'Senior Java Engineer', 'Senior Java Developer', 'Senior Software Engineer - Frontend', 'Software Development Manager - Encryption', 'Software Development Engineer III – Android', 'Principal Software Development Engineer - Data & Analytics', 'Senior .NET Developer', 'Systems Engineer DevOps (Omnichannel)', 'Senior Developer - Tesco Connect']], 'System Engineering': ['https://www.tesco-careers.com/technology/uk/en/search-results?category=System Engineering', ['Systems Engineer II', 'Systems Engineer I - JIRA', 'Systems Engineer I', 'Systems Engineer I', 'Systems Engineer I', 'Systems Engineer II', 'Systems Engineer I', 'Systems Engineer III', 'Systems Engineer II', 'Systems Engineering Manager - Storage & Backup']], 'UI/UX': ['https://www.tesco-careers.com/technology/uk/en/c/uiux-design-jobs', ['Associate UX Designer', 'UI Designer - Complex Applications', 'Senior Product Designer']], 'Others': ['https://www.tesco-careers.com/technology/uk/en/c/other-jobs', ['Software Development Engineer III', 'Product Manager - Computer Vision', 'Product Manager - Data Platforms', 'Software Development Engineer III', 'Software Dev Engineer II', 'Senior Digital Analyst (Customer Product)', 'Head of Product - Colleague Transformation']]}
     return render_template('tesco.html',data=mapping)
 
 
@@ -88,7 +64,7 @@ def tesco():
 def flipkart():
     url='https://www.flipkartcareers.com/#!/joblist'
     driver.get(url)
-    time.sleep(3)
+    time.sleep(10)
     content=driver.page_source
     soup1=BeautifulSoup(content,"lxml")
     xx=soup1.findAll('li',{"class": "ng-scope"})
@@ -101,11 +77,10 @@ def flipkart():
     #     a.click()
     #     time.sleep(20)
     raw_data=[]
-#     xx=[1]
     for index in range(1,len(xx)+1):
         url_home='https://www.flipkartcareers.com/#!/joblist'
         driver.get(url_home)
-        time.sleep(4)
+        time.sleep(3)
         a=driver.find_element_by_link_text(str(index))
         # print(a)
         a.click()
@@ -120,13 +95,13 @@ def flipkart():
             url_construct='https://www.flipkartcareers.com/'+zz[0]['href']
             list_urls.append(url_construct)
         print(list_urls)
-#         list_urls=['https://www.flipkartcareers.com/#!/job-view/senior-manager-bangalore-karnataka-2020071019410853']
+        # list_urls=['https://www.flipkartcareers.com/#!/job-view/senior-manager-bangalore-karnataka-2020071019410853',
         # 'https://www.flipkartcareers.com/#!/job-view/manager-bangalore-karnataka-2020062312304473',
         # 'https://www.flipkartcareers.com/#!/job-view/architect-bangalore-karnataka-2020012921042577',
         # 'https://www.flipkartcareers.com/#!/job-view/associate-director-dc-ops-large-kolkata-kolkata-west-bengal-2019080914343317']
         for url in list_urls:
             driver.get(url)
-            time.sleep(1.6)
+            time.sleep(2)
             content = driver.page_source
             # print(content)
             # time.sleep(10)
@@ -136,7 +111,7 @@ def flipkart():
             print(role[0].text)
 
             info=soup.findAll('p',{'class':'para-text-new ng-binding'})
-#             print(info)
+            print(info)
             open_pos=info[1].text
             # req_skills=info[2].text
             # quali=info[4].text
@@ -150,12 +125,54 @@ def flipkart():
             'Exp':exp,
             'Link':url
             }
-#             print(maps)
+            print(maps)
             # maps=jsonify(maps)
             raw_data.append(maps)
     # raw_data=jsonify(raw_data)
     return render_template('flipkart.html',data=raw_data)
 
+@app.route('/amazon',methods=['GET', 'POST'])
+def amazon():
+    raw_data=[]
+    positions=["Professionals","Students and Graduates"]
+    urls=["https://www.amazon.jobs/en/teams/engineering-fulfillment","https://www.amazon.jobs/en/business_categories/student-programs"]
+    for index in range(0,len(urls)):
+        url=urls[index]
+        driver.get(url)
+        time.sleep(5)
+        a=driver.find_elements_by_class_name('page-button')[-1].text
+        xx=int(a)
+        print(xx)
+        job_list=driver.find_elements_by_css_selector('h3.job-title')
+        job_links=driver.find_elements_by_css_selector('a.job-link')
+        for ind in range(0,len(job_list)):
+            maps={
+                'Criteria':positions[index],
+                'role':job_list[ind].text,
+                'link':job_links[ind].get_attribute('href')
+            }
+            raw_data.append(maps)
+        # print(xx)
+        for i in range(1,xx):
+            # https://www.amazon.jobs/en/teams/engineering-fulfillment?offset=10&result_limit=10&sort=relevant&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&
+            url=urls[index]+'?offset='+str(10*i)+'&result_limit=10&sort=relevant&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&'
+            driver.get(url)
+            # print(url)
+            time.sleep(5)
+            job_list=driver.find_elements_by_css_selector('h3.job-title')
+            job_links=driver.find_elements_by_css_selector('a.job-link')
+            for ind in range(0,len(job_list)):
+                maps={
+                    'Criteria':positions[index],
+                    'role':job_list[ind].text,
+                    'link':job_links[ind].get_attribute('href')
+                }
+                raw_data.append(maps)
+    return render_template('amazon.html',data=raw_data)
+        # for content in job_links:
+        #     print(content.get_attribute('href'))
+
+
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 3098))
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
