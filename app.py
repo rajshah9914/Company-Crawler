@@ -169,8 +169,120 @@ def amazon():
                 }
                 raw_data.append(maps)
     return render_template('amazon.html',data=raw_data)
-        # for content in job_links:
-        #     print(content.get_attribute('href'))
+    
+@app.route('/walmart',methods=['GET', 'POST'])
+def walmart():
+    url="https://careers.walmart.com/"
+    driver.get(url)
+    time.sleep(5)
+    driver.find_element_by_xpath('/html/body/main/section[1]/div[2]/div/form/div[1]/div[3]/input').click()
+    categories=driver.find_elements_by_css_selector('a.department-grid__link')
+    links=[]
+    # areas=[]
+    for category in categories:
+        # print(i.get_attribute('href')[28:38])
+        if(category.get_attribute('href')[28:38]=="technology"):
+            links.append(category.get_attribute('href'))
+            # areas.append(category.text)
+    # print(areas)
+    raw_data=[]
+    for ind in range(0,len(links)):
+        driver.get(links[ind])
+        title=links[ind][39:]
+        print(title)
+        time.sleep(2)
+        # title=areas[ind]
+        if(title=="information-technology"):
+            go_to_jobs=driver.find_element_by_link_text("See All Openings")
+            go_to_jobs.click()
+            time.sleep(3)
+            url_ch=driver.current_url
+            # driver.find_element_by_xpath('/html/body/main/section/div/div/div[1]/form/div[1]/div[3]/input').click()
+            # time.sleep(3)
+            # title=driver.find_element_by_css_selector('h1.hero__title hero-title hero-title--fluid').text
+            tot_jobs=driver.find_element_by_id('count_totalResults').text
+            if(tot_jobs!=''):
+                tot_jobs=int(tot_jobs)
+            else:
+                tot_jobs=int(0)
+            if(tot_jobs%25==0):
+                pages=tot_jobs//25
+            else:
+                pages=tot_jobs//25
+                pages+=1
+            for i in range(0,len(url_ch)):
+                if(url_ch[i]=='e' and url_ch[i+1]=='='):
+                    construct_url=url_ch[:i+2]
+                    pos=i+2
+                    break
+            for i in range(pos,len(url_ch)):
+                if(url_ch[i]=='&'):
+                    pos2=i
+                    break
+            count=int(0)
+            for i in range(1,pages+1):
+                if(i>4):
+                    break
+                construct_url_ch=construct_url+str(i)
+                construct_url_ch+=url_ch[pos2:]
+                driver.get(construct_url_ch)
+                time.sleep(3)
+                job_info=driver.find_elements_by_css_selector('a.job-listing__link')
+                for ind in range(0,len(job_info)):
+                    maps={
+                        'Category':title,
+                        'Title':job_info[ind].text,
+                        'Link':job_info[ind].get_attribute('href')
+                    }
+                    raw_data.append(maps)
+        else:
+            go_to_jobs=driver.find_element_by_link_text("See All Openings")
+            go_to_jobs.click()
+            time.sleep(3)
+            # if(title=="cybersecurity"):
+            # time.sleep(7)
+            url_ch=driver.current_url
+            # driver.find_element_by_xpath('/html/body/main/section/div/div/div[1]/form/div[1]/div[3]/input').click()
+            # time.sleep(7)
+            # title=driver.find_element_by_css_selector('h1.hero__title hero-title hero-title--fluid').text
+            tot_jobs=driver.find_element_by_id('count_totalResults').text
+            if(tot_jobs!=''):
+                tot_jobs=int(tot_jobs)
+            else:
+                tot_jobs=int(0)
+            if(tot_jobs%25==0):
+                pages=tot_jobs//25
+            else:
+                pages=tot_jobs//25
+                pages+=1
+            for i in range(0,len(url_ch)):
+                if(url_ch[i]=='e' and url_ch[i+1]=='='):
+                    construct_url=url_ch[:i+2]
+                    pos=i+2
+                    break
+            for i in range(pos,len(url_ch)):
+                if(url_ch[i]=='&'):
+                    pos2=i
+                    break
+            print(pages)
+            for i in range(1,pages+1):
+                # print(title)
+                if(i>4):
+                    break
+                construct_url_ch=construct_url+str(i)
+                construct_url_ch+=url_ch[pos2:]
+                driver.get(construct_url_ch)
+                time.sleep(9)
+                job_info=driver.find_elements_by_css_selector('a.job-listing__link')
+                print(len(job_info))
+                for ind in range(0,len(job_info)):
+                    maps={
+                        'Category':title,
+                        'Title':job_info[ind].text,
+                        'Link':job_info[ind].get_attribute('href')
+                    }
+                    raw_data.append(maps)
+    return render_template('walmart.html',data=raw_data)
 
 
 if __name__ == '__main__':
