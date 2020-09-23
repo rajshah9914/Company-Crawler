@@ -284,7 +284,58 @@ def walmart():
                     raw_data.append(maps)
     return render_template('walmart.html',data=raw_data)
 
+@app.route('/cisco',methods=['GET', 'POST'])
+def cisco():
+    url="https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1&21178=%5B%7B"+"%22%"+"24JSNType"+"%22%"+"3A"+"%22d"+"ataset_Option"+"%22%"+"2C%22value"+"%22%"+"3A%7B"+"%22i"+"d"+"%22%"+"3A207928%2C%22name"+"%22%"+"3Anull%7D%7D%5D&21178_format=6020&projectOffset=0"
+    driver.get(url)
+    tot_jobs_list=driver.find_elements_by_css_selector('a.pagination_item')
+    tot_jobs=tot_jobs_list[-2].text
+    tot_jobs=int(tot_jobs)
+    elements=driver.find_elements_by_tag_name('td')
+    links=[]
+    job_titles=[]
+    actions=[]
+    area_of_interest=[]
+    for element in elements:
+        if(element.get_attribute('data-th')=="Actions"):
+            actions.append(element.text)
+        elif(element.get_attribute('data-th')=="Area of Interest"):
+            area_of_interest.append(element.text)
+        elif(element.get_attribute('data-th')=="Job Title"):
+            job_titles.append(element.text)
+            a_tag=element.find_element_by_tag_name('a')
+            links.append(a_tag.get_attribute('href'))
 
+    # for i in range(0,len(job_titles)):
+    #     print(actions[i],job_titles[i],links[i])
+    for ind in range(1,tot_jobs):
+        urll="https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1&21178=%5B%7B"+"%22%"+"24JSNType"+"%22%"+"3A"+"%22d"+"ataset_Option"+"%22%"+"2C%22value"+"%22%"+"3A%7B"+"%22i"+"d"+"%22%"+"3A207928%2C%22name"+"%22%"+"3Anull%7D%7D%5D&21178_format=6020&projectOffset="+str(ind*25)
+        driver.get(urll)
+        time.sleep(2)
+        elements=driver.find_elements_by_tag_name('td')
+        for element in elements:
+            if(element.get_attribute('data-th')=="Actions"):
+                actions.append(element.text)
+            elif(element.get_attribute('data-th')=="Area of Interest"):
+                area_of_interest.append(element.text)
+            elif(element.get_attribute('data-th')=="Job Title"):
+                job_titles.append(element.text)
+                a_tag=element.find_element_by_tag_name('a')
+                links.append(a_tag.get_attribute('href'))
+
+    raw_data=[]
+    print(len(job_titles),len(links),len(actions),len(area_of_interest))
+    # for i in area_of_interest:
+    #     print(i)
+    for ind in range(0,len(job_titles)):
+        maps={
+            'Action':actions[ind],
+            'Area Of Interest':area_of_interest[ind],
+            'Job Title':job_titles[ind],
+            'Link':links[ind]
+        }
+        raw_data.append(maps)
+    return render_template('cisco.html',data=raw_data)
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
