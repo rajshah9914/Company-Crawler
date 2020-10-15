@@ -5,8 +5,12 @@ from flask import render_template,jsonify
 import os
 from flask import url_for, redirect,request
 
+
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 import time
 
 DRIVER_PATH = 'chromedriver'
@@ -336,6 +340,39 @@ def cisco():
         }
         raw_data.append(maps)
     return render_template('cisco.html',data=raw_data)
+
+
+@app.route('/target',methods=['GET', 'POST'])
+def target():
+    url="https://jobs.target.com/search-jobs?k=&fl=1269750#"
+    driver.get(url)
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CLASS_NAME,'pagination-show-all'))).click()
+    time.sleep(4)
+    links=[]
+    job=[]
+    la=driver.find_elements_by_tag_name('a')
+    for i in la:
+        if(i.get_attribute('data-job-id')):
+            links.append(i.get_attribute('href'))
+            job.append(i.find_element_by_tag_name('h2').text)
+
+    Category=[]
+    for i in range(0,len(links)):
+        driver.get(links[i])
+        element=driver.find_element_by_class_name('job-date')
+        Category.append(element.text[12:])
+        time.sleep(3)
+
+    raw_data=[]
+    for ind in range(0,len(links)):
+        maps={
+            'Category':Category[ind],
+            'Job Title':job[ind],
+            'Link':links[ind]
+        }
+        raw_data.append(maps)
+    return render_template('target.html',data=raw_data)
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
