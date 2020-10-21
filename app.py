@@ -373,6 +373,55 @@ def target():
         raw_data.append(maps)
     return render_template('target.html',data=raw_data)
 
+@app.route('/philips',methods=['GET', 'POST'])
+def philips():
+    raw_data=[]
+    posts=["SDE","Service Jobs","R&D","Procurement","Finance","Engineering","Supply Chain"]
+    ur=["https://www.careers.philips.com/professional/in/en/c/software-development-jobs","https://www.careers.philips.com/professional/in/en/c/service-jobs","https://www.careers.philips.com/professional/in/en/c/r-d-jobs",
+    "https://www.careers.philips.com/professional/in/en/c/procurement-jobs","https://www.careers.philips.com/professional/in/en/c/finance-jobs","https://www.careers.philips.com/professional/in/en/c/engineering-jobs","https://www.careers.philips.com/professional/in/en/c/supply-chain-jobs"]
+    # url="https://www.careers.philips.com/professional/in/en/c/software-development-jobs"
+    for idxx in range(0,len(ur)):
+        url=ur[idxx]
+        driver.get(url)
+        time.sleep(3)
+        checkbox_check=driver.find_elements_by_class_name('result-text')
+        checkbox_check[16].click()
+        jobs=driver.find_element_by_class_name('text-val-results')
+        # print(jobs.text)
+        tot_jobs=jobs.text[:-8]
+        tot_jobs=int(tot_jobs)
+        # print(tot_jobs)
+        no_of_pages=0
+        if((tot_jobs%50)==0):
+            no_of_pages=tot_jobs//50
+        else:
+            no_of_pages=(tot_jobs//50)+1
+        for idx in range(0,no_of_pages):
+            urll=url+"?from="+str(idx*50)+"&s=1"
+            driver.get(urll)
+            time.sleep(3)
+            titles=driver.find_elements_by_css_selector('div.title')
+            # category=driver.find_elements_by_css_selector('span.job-category')
+            # period=driver.find_elements_by_css_selector('span.job-industry')
+            lin=driver.find_elements_by_css_selector('a.au-target')
+            links=[]
+            for ind in range(0,len(lin)):
+                if(lin[ind].get_attribute('data-ph-at-id')=='job-link'):
+                    links.append(lin[ind])
+            # print(len(titles),len(category),len(period),len(links))
+            for i in range(0,len(titles)):
+                maps={
+                    'Post':posts[idxx],
+                    # 'Category':category[i].text,
+                    'Job Title':titles[i].text,
+                    # 'Type':period[i].text,
+                    'Link':links[i].get_attribute('href')
+                }
+                # print(titles[i].text,category[i].text,period[i].text,links[i].get_attribute('href'))
+                raw_data.append(maps)
+                # time.sleep(1)
+    return render_template('philips.html',data=raw_data)
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
