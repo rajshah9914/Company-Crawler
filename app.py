@@ -509,6 +509,48 @@ def philips():
                 # time.sleep(1)
     return render_template('philips.html',data=raw_data)
 
+@app.route('/ibm',methods=['GET', 'POST'])
+def ibm():
+    url="https://www.ibm.com/in-en/employment/#jobs"
+    driver.get(url)
+    time.sleep(3)
+    jobs=[]
+    categories=[]
+    link=[]
+    types=[]
+    for i in range(1,64):
+        job_role=driver.find_elements_by_css_selector('p.ibm-type-e')
+        job_role=job_role[-8:]
+        for jj in job_role:
+            jobs.append(jj.text)
+        category=driver.find_elements_by_css_selector('p.ibm-type-c')
+        category=category[-18:-2]
+        for jj in range(0,len(category)):
+            if((jj%2)==1):
+                categories.append(category[jj].text)
+
+        typ=driver.find_elements_by_css_selector('p.ibm-type-a')
+        for jj in typ:
+            types.append(jj.text)
+        links=driver.find_elements_by_css_selector('a.ibm-card')
+        links=links[-8:]
+        for jj in links:
+            link.append(jj.get_attribute('href'))
+
+        next_click=driver.find_elements_by_css_selector('p.ibm-icon-nolink')
+        next_click[-1].click()
+
+    raw_data=[]
+    for val in range(len(jobs)):
+        maps={
+            "Category":categories[val],
+            "Type":types[val],
+            "Job Role":jobs[val],
+            "Link":link[val]
+        }
+        raw_data.append(maps)
+    return render_template('ibm.html',data=raw_data)
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
