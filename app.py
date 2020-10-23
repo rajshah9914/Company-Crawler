@@ -139,14 +139,17 @@ def flipkart():
 def amazon():
     raw_data=[]
     positions=["Professionals","Students and Graduates"]
-    urls=["https://www.amazon.jobs/en/teams/engineering-fulfillment","https://www.amazon.jobs/en/business_categories/student-programs"]
+    # positions=["Students and Graduates"]
+    pre=["https://www.amazon.jobs/en/teams/engineering-fulfillment","https://www.amazon.jobs/en/business_categories/student-programs"]
+    urls=["https://www.amazon.jobs/en/teams/engineering-fulfillment?offset=0&result_limit=10&sort=relevant&cities[]=Bengaluru%2C%20Karnataka%2C%20IND&cities[]=Hyderabad%2C%20Telangana%2C%20IND&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&","https://www.amazon.jobs/en/business_categories/student-programs?offset=0&result_limit=10&sort=relevant&cities[]=Bengaluru%2C%20Karnataka%2C%20IND&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&"]
+    # urls=["https://www.amazon.jobs/en/teams/engineering-fulfillment","https://www.amazon.jobs/en/business_categories/student-programs"]
     for index in range(0,len(urls)):
         url=urls[index]
         driver.get(url)
         time.sleep(5)
         a=driver.find_elements_by_class_name('page-button')[-1].text
         xx=int(a)
-        print(xx)
+        # print(xx)
         job_list=driver.find_elements_by_css_selector('h3.job-title')
         job_links=driver.find_elements_by_css_selector('a.job-link')
         for ind in range(0,len(job_list)):
@@ -159,7 +162,12 @@ def amazon():
         # print(xx)
         for i in range(1,xx):
             # https://www.amazon.jobs/en/teams/engineering-fulfillment?offset=10&result_limit=10&sort=relevant&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&
-            url=urls[index]+'?offset='+str(10*i)+'&result_limit=10&sort=relevant&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&'
+            if(index==0):
+                # print(i,index)
+                url=pre[index]+'?offset='+str(10*i)+'&result_limit=10&sort=relevant&cities[]=Bengaluru%2C%20Karnataka%2C%20IND&cities[]=Hyderabad%2C%20Telangana%2C%20IND&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&'
+            else:
+                # print(i,index)
+                url=pre[index]+'?offset='+str(10*i)+'&result_limit=10&sort=relevant&cities[]=Bengaluru%2C%20Karnataka%2C%20IND&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&'
             driver.get(url)
             # print(url)
             time.sleep(5)
@@ -176,116 +184,195 @@ def amazon():
     
 @app.route('/walmart',methods=['GET', 'POST'])
 def walmart():
-    url="https://careers.walmart.com/"
+    url="https://walmart.cluster3.openings.co/#!/"
     driver.get(url)
-    time.sleep(5)
-    driver.find_element_by_xpath('/html/body/main/section[1]/div[2]/div/form/div[1]/div[3]/input').click()
-    categories=driver.find_elements_by_css_selector('a.department-grid__link')
+    time.sleep(10)
+    jobs=[]
     links=[]
-    # areas=[]
-    for category in categories:
-        # print(i.get_attribute('href')[28:38])
-        if(category.get_attribute('href')[28:38]=="technology"):
-            links.append(category.get_attribute('href'))
-            # areas.append(category.text)
-    # print(areas)
+    tot=driver.find_elements_by_css_selector('ul.pagination')
+    txt=tot[0].text[-4:-1]
+    click_text=tot[0].text[-2:]
+    print(click_text)
+    print(txt)
+    total_jobs=int(txt)
+    posts=driver.find_elements_by_css_selector('h2.heading-secondary')
+    link=driver.find_elements_by_css_selector('a.ng-binding')
+    # print(len(link))
+    for post in posts:
+        jobs.append(post.text)
+    link=link[:6]
+    text_data=[]
+    for lin in link:
+        text_data.append(lin.text)
+
+    for data in text_data:
+        aa=driver.find_element_by_link_text(str(data))
+        aa.click()
+        url_ch=driver.current_url
+        links.append(url_ch)
+        url="https://walmart.cluster3.openings.co/#!/"
+        driver.get(url)
+        # time.sleep(2)
+
+
+    # print(len(links))
+    url="https://walmart.cluster3.openings.co/#!/"
+    driver.get(url)
+    time.sleep(10)
+    # for i in range(0,len(links)):
+    #     print(links[i])
+    # for i in range(2,total_jobs):
+    #     time.sleep(5)
+    #     arrow=driver.find_element_by_xpath("/html/body/div[1]/div[5]/div/div/div/div/div/section[2]/div/div[2]/ul/li[22]/a")
+    for i in range(2,total_jobs):
+        time.sleep(10)
+        # driver.find_element_by_link_text(str(i))
+        arrow=driver.find_element_by_xpath("/html/body/div[1]/div[5]/div/div/div/div/div/section[2]/div/div[2]/ul/li[21]/a")
+        arrow.click()
+        link=[]
+        this_page=[]
+        link=driver.find_elements_by_css_selector('a.ng-binding')
+        posts=driver.find_elements_by_css_selector('h2.heading-secondary')
+        for post in posts:
+            jobs.append(post.text)
+            this_page.append(post.text)
+        link=link[:6]
+        text_data=[]
+        for lin in link:
+            print(lin.text)
+            text_data.append(lin.text)
+
+        for ind in range(0,6):
+            aa=driver.find_element_by_link_text(str(this_page[ind]))
+            aa.click()
+            url_ch=driver.current_url
+            links.append(url_ch)
+            url="https://walmart.cluster3.openings.co/#!/"
+            driver.get(url)
+            time.sleep(7)
+            for no_of_click in range(0,i-1):
+                arrow=driver.find_element_by_xpath("/html/body/div[1]/div[5]/div/div/div/div/div/section[2]/div/div[2]/ul/li[21]/a")
+                arrow.click()
+
+
+    print(len(jobs),len(links))
     raw_data=[]
-    for ind in range(0,len(links)):
-        driver.get(links[ind])
-        title=links[ind][39:]
-        print(title)
-        time.sleep(2)
-        # title=areas[ind]
-        if(title=="information-technology"):
-            go_to_jobs=driver.find_element_by_link_text("See All Openings")
-            go_to_jobs.click()
-            time.sleep(3)
-            url_ch=driver.current_url
-            # driver.find_element_by_xpath('/html/body/main/section/div/div/div[1]/form/div[1]/div[3]/input').click()
-            # time.sleep(3)
-            # title=driver.find_element_by_css_selector('h1.hero__title hero-title hero-title--fluid').text
-            tot_jobs=driver.find_element_by_id('count_totalResults').text
-            if(tot_jobs!=''):
-                tot_jobs=int(tot_jobs)
-            else:
-                tot_jobs=int(0)
-            if(tot_jobs%25==0):
-                pages=tot_jobs//25
-            else:
-                pages=tot_jobs//25
-                pages+=1
-            for i in range(0,len(url_ch)):
-                if(url_ch[i]=='e' and url_ch[i+1]=='='):
-                    construct_url=url_ch[:i+2]
-                    pos=i+2
-                    break
-            for i in range(pos,len(url_ch)):
-                if(url_ch[i]=='&'):
-                    pos2=i
-                    break
-            count=int(0)
-            for i in range(1,pages+1):
-                if(i>4):
-                    break
-                construct_url_ch=construct_url+str(i)
-                construct_url_ch+=url_ch[pos2:]
-                driver.get(construct_url_ch)
-                time.sleep(3)
-                job_info=driver.find_elements_by_css_selector('a.job-listing__link')
-                for ind in range(0,len(job_info)):
-                    maps={
-                        'Category':title,
-                        'Title':job_info[ind].text,
-                        'Link':job_info[ind].get_attribute('href')
-                    }
-                    raw_data.append(maps)
-        else:
-            go_to_jobs=driver.find_element_by_link_text("See All Openings")
-            go_to_jobs.click()
-            time.sleep(3)
-            # if(title=="cybersecurity"):
-            # time.sleep(7)
-            url_ch=driver.current_url
-            # driver.find_element_by_xpath('/html/body/main/section/div/div/div[1]/form/div[1]/div[3]/input').click()
-            # time.sleep(7)
-            # title=driver.find_element_by_css_selector('h1.hero__title hero-title hero-title--fluid').text
-            tot_jobs=driver.find_element_by_id('count_totalResults').text
-            if(tot_jobs!=''):
-                tot_jobs=int(tot_jobs)
-            else:
-                tot_jobs=int(0)
-            if(tot_jobs%25==0):
-                pages=tot_jobs//25
-            else:
-                pages=tot_jobs//25
-                pages+=1
-            for i in range(0,len(url_ch)):
-                if(url_ch[i]=='e' and url_ch[i+1]=='='):
-                    construct_url=url_ch[:i+2]
-                    pos=i+2
-                    break
-            for i in range(pos,len(url_ch)):
-                if(url_ch[i]=='&'):
-                    pos2=i
-                    break
-            print(pages)
-            for i in range(1,pages+1):
-                # print(title)
-                if(i>4):
-                    break
-                construct_url_ch=construct_url+str(i)
-                construct_url_ch+=url_ch[pos2:]
-                driver.get(construct_url_ch)
-                time.sleep(9)
-                job_info=driver.find_elements_by_css_selector('a.job-listing__link')
-                print(len(job_info))
-                for ind in range(0,len(job_info)):
-                    maps={
-                        'Category':title,
-                        'Title':job_info[ind].text,
-                        'Link':job_info[ind].get_attribute('href')
-                    }
-                    raw_data.append(maps)
+    for index in range(0,len(jobs)):
+        maps={
+            "Job_Role":jobs[index],
+            "Link":links[index]
+        }
+        raw_data.append(maps)
+    # url="https://careers.walmart.com/"
+    # driver.get(url)
+    # time.sleep(5)
+    # driver.find_element_by_xpath('/html/body/main/section[1]/div[2]/div/form/div[1]/div[3]/input').click()
+    # categories=driver.find_elements_by_css_selector('a.department-grid__link')
+    # links=[]
+    # # areas=[]
+    # for category in categories:
+    #     # print(i.get_attribute('href')[28:38])
+    #     if(category.get_attribute('href')[28:38]=="technology"):
+    #         links.append(category.get_attribute('href'))
+    #         # areas.append(category.text)
+    # # print(areas)
+    # raw_data=[]
+    # for ind in range(0,len(links)):
+    #     driver.get(links[ind])
+    #     title=links[ind][39:]
+    #     print(title)
+    #     time.sleep(2)
+    #     # title=areas[ind]
+    #     if(title=="information-technology"):
+    #         go_to_jobs=driver.find_element_by_link_text("See All Openings")
+    #         go_to_jobs.click()
+    #         time.sleep(3)
+    #         url_ch=driver.current_url
+    #         # driver.find_element_by_xpath('/html/body/main/section/div/div/div[1]/form/div[1]/div[3]/input').click()
+    #         # time.sleep(3)
+    #         # title=driver.find_element_by_css_selector('h1.hero__title hero-title hero-title--fluid').text
+    #         tot_jobs=driver.find_element_by_id('count_totalResults').text
+    #         if(tot_jobs!=''):
+    #             tot_jobs=int(tot_jobs)
+    #         else:
+    #             tot_jobs=int(0)
+    #         if(tot_jobs%25==0):
+    #             pages=tot_jobs//25
+    #         else:
+    #             pages=tot_jobs//25
+    #             pages+=1
+    #         for i in range(0,len(url_ch)):
+    #             if(url_ch[i]=='e' and url_ch[i+1]=='='):
+    #                 construct_url=url_ch[:i+2]
+    #                 pos=i+2
+    #                 break
+    #         for i in range(pos,len(url_ch)):
+    #             if(url_ch[i]=='&'):
+    #                 pos2=i
+    #                 break
+    #         count=int(0)
+    #         for i in range(1,pages+1):
+    #             if(i>4):
+    #                 break
+    #             construct_url_ch=construct_url+str(i)
+    #             construct_url_ch+=url_ch[pos2:]
+    #             driver.get(construct_url_ch)
+    #             time.sleep(3)
+    #             job_info=driver.find_elements_by_css_selector('a.job-listing__link')
+    #             for ind in range(0,len(job_info)):
+    #                 maps={
+    #                     'Category':title,
+    #                     'Title':job_info[ind].text,
+    #                     'Link':job_info[ind].get_attribute('href')
+    #                 }
+    #                 raw_data.append(maps)
+    #     else:
+    #         go_to_jobs=driver.find_element_by_link_text("See All Openings")
+    #         go_to_jobs.click()
+    #         time.sleep(3)
+    #         # if(title=="cybersecurity"):
+    #         # time.sleep(7)
+    #         url_ch=driver.current_url
+    #         # driver.find_element_by_xpath('/html/body/main/section/div/div/div[1]/form/div[1]/div[3]/input').click()
+    #         # time.sleep(7)
+    #         # title=driver.find_element_by_css_selector('h1.hero__title hero-title hero-title--fluid').text
+    #         tot_jobs=driver.find_element_by_id('count_totalResults').text
+    #         if(tot_jobs!=''):
+    #             tot_jobs=int(tot_jobs)
+    #         else:
+    #             tot_jobs=int(0)
+    #         if(tot_jobs%25==0):
+    #             pages=tot_jobs//25
+    #         else:
+    #             pages=tot_jobs//25
+    #             pages+=1
+    #         for i in range(0,len(url_ch)):
+    #             if(url_ch[i]=='e' and url_ch[i+1]=='='):
+    #                 construct_url=url_ch[:i+2]
+    #                 pos=i+2
+    #                 break
+    #         for i in range(pos,len(url_ch)):
+    #             if(url_ch[i]=='&'):
+    #                 pos2=i
+    #                 break
+    #         print(pages)
+    #         for i in range(1,pages+1):
+    #             # print(title)
+    #             if(i>4):
+    #                 break
+    #             construct_url_ch=construct_url+str(i)
+    #             construct_url_ch+=url_ch[pos2:]
+    #             driver.get(construct_url_ch)
+    #             time.sleep(9)
+    #             job_info=driver.find_elements_by_css_selector('a.job-listing__link')
+    #             print(len(job_info))
+    #             for ind in range(0,len(job_info)):
+    #                 maps={
+    #                     'Category':title,
+    #                     'Title':job_info[ind].text,
+    #                     'Link':job_info[ind].get_attribute('href')
+    #                 }
+    #                 raw_data.append(maps)
     return render_template('walmart.html',data=raw_data)
 
 @app.route('/cisco',methods=['GET', 'POST'])
